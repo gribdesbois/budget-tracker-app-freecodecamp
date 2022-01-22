@@ -19,14 +19,18 @@ const initialState = {
 
 export const AppContext = createContext()
 
-export const AppProvider = (props) => {
+export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState)
 
-  return (<>
+  return (
     <AppContext.Provider value={{
       budget: state.budget,
       expenses: state.expenses,
-    }}
-    ></AppContext.Provider>
-  </>)
+      dispatch,
+    }}>
+      <>
+        { children}
+      </>
+    </AppContext.Provider>
+  )
 }
