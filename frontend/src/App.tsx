@@ -1,15 +1,16 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Container } from 'react-bootstrap'
-import Budget from './components/Budget/Budget.tsx'
+import { Container, Row, Col } from 'react-bootstrap'
+import Budget from './components/Budget/Budget'
 import Remaining from './components/Remaining/Remaining'
 import ExpenseTotal from './components/ExpenseTotal/ExpenseTotal'
+import ExpenseList from './components/ExpenseList/ExpenseList'
 
 function App() {
   return (
     <Container>
       <h1 className="mt-3">My Budget Planner</h1>
-      <div className="row mt-3">
+      <Row className="mt-3">
         <div className="col-sm">
           <Budget />
         </div>
@@ -19,7 +20,14 @@ function App() {
         <div className="col-sm">
           <ExpenseTotal />
         </div>
-      </div>
+        <h3 className="mt-3">Expenses</h3>
+        <Row className="mt-3">
+          <div className="col-sm">
+            <ExpenseList />
+          </div>
+        </Row>
+
+      </Row>
     </Container>
   )
 }
