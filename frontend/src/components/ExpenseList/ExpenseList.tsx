@@ -23,6 +23,7 @@ function ExpenseList() {
           id={id}
           name={name}
           cost={cost}
+          key={id}
         />
       })}
     </ul>
