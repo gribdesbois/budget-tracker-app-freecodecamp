@@ -1,8 +1,29 @@
-import React from 'react'
+/* eslint-disable radix */
+import React, { useContext, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import { AppContext } from '../../context/AppContext.jsx'
 
 function AddExpenseForm() {
+  const [name, setName] = useState('')
+  const [cost, setCost] = useState('')
+  const { dispatch } = useContext(AppContext)
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+    const expense = {
+      id: uuidv4(),
+      name,
+      cost: parseInt(cost),
+    }
+
+    dispatch({
+      type: 'ADD_EXPENSE',
+      payload: expense,
+    })
+  }
+
   return (
-    <form >
+    <form onSubmit={onSubmit}>
       <div className="row">
         <div className="col-sm">
           <label htmlFor="name">Name</label>
@@ -10,6 +31,8 @@ function AddExpenseForm() {
             className='form-control'
             type="text"
             required id='name'
+            value={name}
+            onChange={(event) => setName(event.target.value)}
           />
         </div>
         <div className="col-sm">
@@ -18,6 +41,8 @@ function AddExpenseForm() {
             className='form-control'
             type="text"
             required id='cost'
+            value={cost}
+            onChange={(event) => setCost(event.target.value)}
           />
         </div>
       </div>
