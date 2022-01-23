@@ -1,14 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import ExpenseItem from '../ExpenseItem/ExpenseItem'
+import Search from '../Search/Search'
 
 function ExpenseList() {
+  const [search, setSearch] = useState('')
+
   const { expenses } = useContext(AppContext)
+  const filteredExpenses = expenses.filter((expense) => (
+    expense.name.indexOf(search) !== -1 || expense.cost.toString().indexOf(search) !== -1
+  ))//! filter by name or cost
 
-  return (
-
+  return (<>
+    <Search setSearch={setSearch} />
     <ul className="list-group">
-      {expenses.map((expense) => {
+      {filteredExpenses.map((expense) => {
         const { id, name, cost } = expense
         return <ExpenseItem
           id={id}
@@ -18,7 +24,7 @@ function ExpenseList() {
         />
       })}
     </ul>
-  )
+  </>)
 }
 
 export default ExpenseList
